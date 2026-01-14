@@ -1,0 +1,96 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                        ::::::::              #
+#    Makefile                                          :+:    :+:              #
+#                                                     +:+                      #
+#    By: avaliull <avaliull@student.codam.nl>        +#+                       #
+#                                                   +#+                        #
+#    Created: 2025/07/22 19:01:25 by avaliull     #+#    #+#                   #
+#    Updated: 2025/08/06 15:25:10 by avaliull     ########   odam.nl           #
+#                                                                              #
+# **************************************************************************** #
+
+.DEFAULT_GOAL := all
+
+NAME	=	megaphone
+
+C++FILES	=	megaphone.cpp
+
+OFILES	= $(addprefix $(BUILDDIR),$(C++FILES:.cpp=.o))
+DEPFILES	= $(addprefix $(BUILDDIR),$(C++FILES:.cpp=.d))
+
+VPATH	= $(INCLUDE) $(SRCDIRS)
+BUILDDIR = build/
+SRCDIR = src/
+INCDIR = inc/
+SRCDIRS = $(SRCDIR)
+$(SRCDIR):
+	mkdir -p $@
+$(INCDIR):
+	mkdir -p $@
+$(BUILDDIR):
+	mkdir -p $@
+
+RM	= rm -rf
+CC	= c++
+
+# this apparently achieves dependency gen on per-file basis, on compilation
+# without relying on hacky solutions like the one on GNU Makefile docs
+# -MMD is a combination of a few flags:
+#  -M generates dependency files
+#  -MD is the same as -M -MF file
+#  -MF file specifies file to write dependencies to
+#  -MP adds a phony target so make does not cry when a .h file is removed
+CPPFLAGS	= $(INCFLAGS) -MMD -MP
+
+INCFLAGS	= $(addprefix -I,$(INCLUDE))
+CFLAGS	= -Wall -Wextra -Werror
+LDFLAGS	=
+INPUT	=
+
+
+-include $(OFILES:.o=.d)
+
+# builds .d files, then builds .o files based on .d.
+# skips files that weren't changed (see CPPFLAGS)
+$(BUILDDIR)%.o: %.cpp $(INCLUDE) | $(BUILDDIR)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
+$(NAME): $(OFILES)
+	$(CC) $(CFLAGS) -o $@ $(OFILES) $(LDFLAGS) $(INCFLAGS)
+
+#Base/project requirements
+all: $(NAME)
+#libs_clean:
+#	$(MAKE) fclean -C $(LIBFT_DIR)
+clean:
+	$(RM) $(OFILES)
+fclean:	clean #libs_clean
+	$(RM) $(NAME) $(DEPFILES)
+re:	fclean all
+
+#LSP connection for neovim
+clangd:
+	$(MAKE) fclean
+	intercept-build-14 $(MAKE)
+
+#debugging
+debug: CFLAGS += -g
+debug: clean $(NAME)
+gdb: fclean debug
+	gdb -tui ./$(NAME)
+test: $(NAME) run
+run:
+	./$(NAME) $(INPUT)
+# the suppression file is still incomplete.
+# might not be worthwhile to have at all since we don't care about non-definite leaks?
+#
+leak:
+	$(MAKE) -s debug
+	valgrind --suppressions=ignore_readline.supp --track-fds=yes --track-origins=yes \
+	--leak-check=full --show-leak-kinds=all ./$(NAME) $(INPUT)
+val:
+	valgrind --suppressions=ignore_readline.supp --track-fds=yes --track-origins=yes \
+	--leak-check=full --show-leak-kinds=all ./$(NAME) $(INPUT)
+
+.PHONY:	clangd all clean fclean re libs_clean test run leak debug gdb

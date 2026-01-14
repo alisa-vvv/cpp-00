@@ -1,0 +1,16 @@
+test.c
+a.out
+main.c
+./test_files/*
+test_files/
+*.swp
+*.d
+*.o
+*.a
+*.ods
+*.ods#
+tmp
+*.json
+infile*
+outfile*
+README.md

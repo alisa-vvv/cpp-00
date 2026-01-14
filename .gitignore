@@ -1,6 +1,8 @@
 test.c
-a.out
 main.c
+test.cpp
+main.cpp
+a.out
 ./test_files/*
 test_files/
 *.swp
@@ -9,8 +11,11 @@ test_files/
 *.a
 *.ods
 *.ods#
+*.sh
 tmp
 *.json
 infile*
 outfile*
 README.md
+
+megaphone

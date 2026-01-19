@@ -43,6 +43,14 @@ private:
 
 	}
 
+	int	input_is_digit(
+		std::string str
+	) {
+		if (str.find_first_not_of("0123456789") == std::string::npos)
+			return (true);
+		return (false);
+	}
+
 	void	print_single_contact(
 		int contact_index
 	) {
@@ -90,9 +98,21 @@ public:
 		for (int i = 0; i <= last_added; i++) {
 			print_single_contact(i);
 		}
-		std::cout << "Please enter index of the contact you would like to view: ";
+		std::cout << "Please enter index of the contact you would like to view: \n";
+		std::cout << "index: ";
 		std::getline(std::cin, contact_index_str);
+		if (input_is_digit(contact_index_str) == false) {
+			std::cout << "\nIndex can only be a positive number!\n";
+			std::cout << "SEARCH again and input a correct index.\n\n";
+			return ;
+		}
 		contact_index = std::stoi(contact_index_str);
+		if (contact_index > last_added || contact_index < 0)
+		{
+			std::cout << "\nIndex out of range!\n";
+			std::cout << "SEARCH again and input a correct index.\n\n";
+			return ;
+		}
 		print_single_contact(contact_index);
 	}
 

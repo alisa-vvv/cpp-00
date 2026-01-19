@@ -17,6 +17,8 @@ tmp
 infile*
 outfile*
 README.md
+cache/
+.cache/
 
 megaphone
 phonebook

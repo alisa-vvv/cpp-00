@@ -12,6 +12,7 @@
 
 #include <string>
 #include <iostream>
+#include <iomanip>
 
 class	Contact {
 public:
@@ -26,6 +27,34 @@ class	PhoneBook {
 
 private:
 	int	last_added = -1;
+
+	void	print_truncated_field(
+		std::string field
+	) {
+		if (field.length() >= 10)
+		{
+			std::string	truncated_field = field;
+			truncated_field.resize(10);
+			truncated_field[9] = '.';
+			std::cout << std::right << std::setw(10) << truncated_field;
+		}
+		else
+			std::cout << std::right << std::setw(10) << field;
+
+	}
+
+	void	print_single_contact(
+		int contact_index
+	) {
+			std::cout << std::right << std::setw(10) << contact_index;
+			std::cout << '|';
+			print_truncated_field(contact_list[contact_index].first_name);
+			std::cout << '|';
+			print_truncated_field(contact_list[contact_index].last_name);
+			std::cout << '|';
+			print_truncated_field(contact_list[contact_index].nickname);
+			std::cout << "\n\n";
+	}
 
 public:
 	Contact	contact_list[8];
@@ -46,8 +75,26 @@ public:
 		std::getline(std::cin, contact_list[last_added].phone_number);
 		std::cout << "\nEnter darkest secret: ";
 		std::getline(std::cin, contact_list[last_added].secret);
-		std::cout << "\n Contact added!";
+		std::cout << "\nContact added!\n";
 	};
+
+	void	search_contact(void)
+	{
+		int			contact_index;
+		std::string	contact_index_str;
+
+		if (last_added == -1) {
+			std::cout << "No contacts!\n";
+			return ;
+		}
+		for (int i = 0; i <= last_added; i++) {
+			print_single_contact(i);
+		}
+		std::cout << "Please enter index of the contact you would like to view: ";
+		std::getline(std::cin, contact_index_str);
+		contact_index = std::stoi(contact_index_str);
+		print_single_contact(contact_index);
+	}
 
 	void	DEBUG_list_contacts(void)
 	{
@@ -62,4 +109,3 @@ public:
 	   }
 	}
 };
-

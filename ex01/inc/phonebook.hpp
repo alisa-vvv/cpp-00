@@ -27,6 +27,7 @@ class	PhoneBook {
 
 private:
 	int	last_added = -1;
+	int	total_added = 0;
 
 	void	print_truncated_field(
 		std::string field
@@ -72,6 +73,8 @@ public:
 			last_added = 0;
 		else
 			last_added++;
+		if (total_added < 8)
+			total_added++;
 		// todo: add check for empty strings
 		std::cout << "\nEnter first name: ";
 		std::getline(std::cin, contact_list[last_added].first_name);
@@ -91,11 +94,11 @@ public:
 		int			contact_index;
 		std::string	contact_index_str;
 
-		if (last_added == -1) {
+		if (total_added == 0) {
 			std::cout << "No contacts!\n";
 			return ;
 		}
-		for (int i = 0; i <= last_added; i++) {
+		for (int i = 0; i < total_added; i++) {
 			print_single_contact(i);
 		}
 		std::cout << "Please enter index of the contact you would like to view: \n";
@@ -107,25 +110,12 @@ public:
 			return ;
 		}
 		contact_index = std::stoi(contact_index_str);
-		if (contact_index > last_added || contact_index < 0)
+		if (contact_index >= total_added || contact_index < 0)
 		{
 			std::cout << "\nIndex out of range!\n";
 			std::cout << "SEARCH again and input a correct index.\n\n";
 			return ;
 		}
 		print_single_contact(contact_index);
-	}
-
-	void	DEBUG_list_contacts(void)
-	{
-		std::cout << "\nDEBUG: list of all contacts so far:\n";
-		for (int i = 0; i <= last_added; i++) {
-			std::cout << "\tContact #1:\n";
-			std::cout << "\t\tFirst name: " << contact_list[i].first_name << '\n';
-			std::cout << "\t\tLast name: " << contact_list[i].last_name << '\n';
-			std::cout << "\t\tNickname: " << contact_list[i].nickname << '\n';
-			std::cout << "\t\tPhone Number: " << contact_list[i].phone_number << '\n';
-			std::cout << "\t\tDarkest secret: " << contact_list[i].secret << '\n';
-	   }
 	}
 };

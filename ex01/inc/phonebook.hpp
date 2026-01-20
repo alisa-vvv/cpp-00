@@ -6,7 +6,7 @@
 /*   By: avaliull <avaliull@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
 /*   Created: 2026/01/14 17:45:18 by avaliull            #+#    #+#           */
-/*   Updated: 2026/01/14 18:01:41 by avaliull            ########   odam.nl   */
+/*   Updated: 2026/01/20 17:20:48 by avaliull            ########   odam.nl   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 #include <iostream>
 #include <iomanip>
 
+#pragma once
+
 class	Contact {
+
 public:
+	# define FIELD_COUNT 5
 	std::string	first_name;
 	std::string	last_name;
 	std::string	nickname;
@@ -26,8 +30,8 @@ public:
 class	PhoneBook {
 
 private:
-	int	last_added = -1;
-	int	total_added = 0;
+	int			last_added = -1;
+	int			total_added = 0;
 
 	void	print_truncated_field(
 		std::string field
@@ -55,37 +59,55 @@ private:
 	void	print_single_contact(
 		int contact_index
 	) {
+			std::string *const cur_contact = &contact_list[contact_index].first_name;
+
 			std::cout << std::right << std::setw(10) << contact_index;
-			std::cout << '|';
-			print_truncated_field(contact_list[contact_index].first_name);
-			std::cout << '|';
-			print_truncated_field(contact_list[contact_index].last_name);
-			std::cout << '|';
-			print_truncated_field(contact_list[contact_index].nickname);
+			for (int i = 0; i < 3; i++) {
+				std::cout << '|';
+				print_truncated_field(cur_contact[i]);
+			}
 			std::cout << "\n\n";
 	}
 
+	int	get_and_validate_input(
+		std::string *const field,
+		const std::string message
+	) {
+		std::cout << '\n' << message;
+		std::getline(std::cin, *field);
+		if (field->empty()) {
+			std::cout << "Field can't be empty! Try again.\n";
+			return (1);
+		}
+		return (0);
+	}
+
 public:
-	Contact	contact_list[8];
+	# define CONTACT_LIST_SIZE 8
+	Contact	contact_list[CONTACT_LIST_SIZE];
+
+	const std::string	input_msg[FIELD_COUNT] = {
+		"Enter first name: ",
+		"Enter last name: ",
+		"Enter nickname: ",
+		"Enter phone number: ",
+		"Enter darkest secret: "
+	};
 
 	void	add_contact(void) {
 		if (last_added == 7)
 			last_added = 0;
 		else
 			last_added++;
+		std::string *const cur_contact = &contact_list[last_added].first_name;
+
+		for (int i = 0; i < FIELD_COUNT; i++) {
+			while (get_and_validate_input(&cur_contact[i], input_msg[i]) != 0) {
+				;
+			}
+		}
 		if (total_added < 8)
 			total_added++;
-		// todo: add check for empty strings
-		std::cout << "\nEnter first name: ";
-		std::getline(std::cin, contact_list[last_added].first_name);
-		std::cout << "\nEnter last name: ";
-		std::getline(std::cin, contact_list[last_added].last_name);
-		std::cout << "\nEnter nickname: ";
-		std::getline(std::cin, contact_list[last_added].nickname);
-		std::cout << "\nEnter phone number: ";
-		std::getline(std::cin, contact_list[last_added].phone_number);
-		std::cout << "\nEnter darkest secret: ";
-		std::getline(std::cin, contact_list[last_added].secret);
 		std::cout << "\nContact added!\n";
 	};
 

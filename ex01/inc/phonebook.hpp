@@ -14,10 +14,11 @@
 #include <iostream>
 #include <iomanip>
 
-#pragma once
+#ifndef PHONEBOOK_H
+# define PHONEBOOK_H
+# pragma once
 
 class	Contact {
-
 public:
 	# define FIELD_COUNT 5
 	std::string	first_name;
@@ -28,12 +29,11 @@ public:
 };
 
 class	PhoneBook {
-
 private:
-	int			last_added = -1;
-	int			total_added = 0;
+	int			_last_added = -1;
+	int			_total_added = 0;
 
-	void	print_truncated_field(
+	void	_print_truncated_field(
 		std::string field
 	) {
 		if (field.length() >= 10)
@@ -48,7 +48,7 @@ private:
 
 	}
 
-	int	input_is_digit(
+	int	_input_is_digit(
 		std::string str
 	) {
 		if (str.find_first_not_of("0123456789") == std::string::npos)
@@ -56,7 +56,7 @@ private:
 		return (false);
 	}
 
-	void	print_single_contact(
+	void	_print_single_contact(
 		int contact_index
 	) {
 			std::string *const cur_contact = &contact_list[contact_index].first_name;
@@ -64,12 +64,12 @@ private:
 			std::cout << std::right << std::setw(10) << contact_index;
 			for (int i = 0; i < 3; i++) {
 				std::cout << '|';
-				print_truncated_field(cur_contact[i]);
+				_print_truncated_field(cur_contact[i]);
 			}
 			std::cout << "\n\n";
 	}
 
-	int	get_and_validate_input(
+	int	_get_and_validate_input(
 		std::string *const field,
 		const std::string message
 	) {
@@ -82,11 +82,7 @@ private:
 		return (0);
 	}
 
-public:
-	# define CONTACT_LIST_SIZE 8
-	Contact	contact_list[CONTACT_LIST_SIZE];
-
-	const std::string	input_msg[FIELD_COUNT] = {
+	const std::string	_input_msg[FIELD_COUNT] = {
 		"Enter first name: ",
 		"Enter last name: ",
 		"Enter nickname: ",
@@ -94,20 +90,25 @@ public:
 		"Enter darkest secret: "
 	};
 
+
+public:
+	# define CONTACT_LIST_SIZE 8
+	Contact	contact_list[CONTACT_LIST_SIZE];
+
 	void	add_contact(void) {
-		if (last_added == 7)
-			last_added = 0;
+		if (_last_added == 7)
+			_last_added = 0;
 		else
-			last_added++;
-		std::string *const cur_contact = &contact_list[last_added].first_name;
+			_last_added++;
+		std::string *const cur_contact = &contact_list[_last_added].first_name;
 
 		for (int i = 0; i < FIELD_COUNT; i++) {
-			while (get_and_validate_input(&cur_contact[i], input_msg[i]) != 0) {
+			while (_get_and_validate_input(&cur_contact[i], _input_msg[i]) != 0) {
 				;
 			}
 		}
-		if (total_added < 8)
-			total_added++;
+		if (_total_added < 8)
+			_total_added++;
 		std::cout << "\nContact added!\n";
 	};
 
@@ -116,28 +117,29 @@ public:
 		int			contact_index;
 		std::string	contact_index_str;
 
-		if (total_added == 0) {
+		if (_total_added == 0) {
 			std::cout << "No contacts!\n";
 			return ;
 		}
-		for (int i = 0; i < total_added; i++) {
-			print_single_contact(i);
+		for (int i = 0; i < _total_added; i++) {
+			_print_single_contact(i);
 		}
 		std::cout << "Please enter index of the contact you would like to view: \n";
 		std::cout << "index: ";
 		std::getline(std::cin, contact_index_str);
-		if (input_is_digit(contact_index_str) == false) {
+		if (_input_is_digit(contact_index_str) == false) {
 			std::cout << "\nIndex can only be a positive number!\n";
 			std::cout << "SEARCH again and input a correct index.\n\n";
 			return ;
 		}
 		contact_index = std::stoi(contact_index_str);
-		if (contact_index >= total_added || contact_index < 0)
-		{
+		if (contact_index >= _total_added || contact_index < 0) {
 			std::cout << "\nIndex out of range!\n";
 			std::cout << "SEARCH again and input a correct index.\n\n";
 			return ;
 		}
-		print_single_contact(contact_index);
+		_print_single_contact(contact_index);
 	}
 };
+
+#endif /*PHONEBOOK_H*/

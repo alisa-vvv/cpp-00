@@ -35,13 +35,11 @@ void	run_method(
 	bool			*do_run_program,
 	std::string		input_buffer
 ) {
-	if (input_buffer == "ADD") // replace this if else chain with a "c++ way" where it will run
-		// a method from the class
+	if (input_buffer == "ADD")
 		phone_book->add_contact();
 	else if (input_buffer == "SEARCH")
 		phone_book->search_contact();
-	else if (input_buffer == "EXIT")
-	{
+	else if (input_buffer == "EXIT") {
 		std::cout << "Say goodbye to your contacts!\n";
 		*do_run_program = false;
 	}
@@ -57,8 +55,7 @@ int	main(
 	do_run_program = true;
 	std::cout << "\n\tWelcome to the crappy 80's phonebook app!\n\n";
 	print_command_list();
-	while (do_run_program == true)
-	{
+	while (do_run_program == true) {
 		std::cout << "Enter command: ";
 		std::getline(std::cin, input_buffer);
 		std::cout << '\n';

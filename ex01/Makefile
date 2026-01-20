@@ -46,7 +46,8 @@ CC	= c++
 CPPFLAGS	= $(INCFLAGS) -MMD -MP
 
 INCFLAGS	= $(addprefix -I,$(INCLUDE))
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=undefined
+CFLAGS	= -Wall -Wextra -Werror
+#CFLAGS	= -Wall -Wextra -Werror -fsanitize=undefined
 LDFLAGS	=
 INPUT	=
 
@@ -84,9 +85,6 @@ gdb: fclean debug
 test: $(NAME) run
 run:
 	./$(NAME) $(INPUT)
-# the suppression file is still incomplete.
-# might not be worthwhile to have at all since we don't care about non-definite leaks?
-#
 leak:
 	$(MAKE) -s debug
 	valgrind --track-fds=yes --track-origins=yes \
@@ -95,4 +93,4 @@ val:
 	valgrind --track-fds=yes --track-origins=yes \
 	--leak-check=full --show-leak-kinds=all ./$(NAME) $(INPUT)
 
-.PHONY:	clangd all clean fclean re libs_clean test run leak debug gdb
+.PHONY:	clangd all clean fclean re test run leak debug gdb

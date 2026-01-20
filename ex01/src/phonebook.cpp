@@ -45,13 +45,6 @@ void	run_method(
 		std::cout << "Say goodbye to your contacts!\n";
 		*do_run_program = false;
 	}
-	else if (input_buffer == "DEBUG")
-		phone_book->DEBUG_list_contacts();
-	else
-	{
-		std::cout << "\nYou entered a wrong command, you dummy! Here's the list again:\n";
-		print_command_list();
-	}
 }
 
 int	main(

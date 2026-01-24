@@ -14,7 +14,7 @@
 
 NAME	=	phonebook
 
-C++FILES	=	main.cpp\
+C++FILES	=	phonebook_main.cpp\
 				PhoneBook.cpp
 
 OFILES	= $(addprefix $(BUILDDIR),$(C++FILES:.cpp=.o))

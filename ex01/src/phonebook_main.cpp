@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
-/*   phonebook.cpp                                           :+:    :+:       */
+/*   main.cpp                                                :+:    :+:       */
 /*                                                          +:+               */
 /*   By: avaliull <avaliull@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
 /*   Created: 2026/01/14 16:27:18 by avaliull            #+#    #+#           */
-/*   Updated: 2026/01/14 16:29:38 by avaliull            ########   odam.nl   */
+/*   Updated: 2026/01/24 17:55:08 by avaliull            ########   odam.nl   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
+#include <iostream>
+#include <iomanip>
 
 void	print_left_align(
 	std::string	str
@@ -48,7 +50,7 @@ void	run_method(
 int	main(
 	void
 ) {
-	PhoneBook 		*phone_book = new PhoneBook;
+	PhoneBook 		phone_book;
 	bool			do_run_program;
 	std::string		input_buffer;
 
@@ -59,8 +61,7 @@ int	main(
 		std::cout << "Enter command: ";
 		std::getline(std::cin, input_buffer);
 		std::cout << '\n';
-		run_method(phone_book, &do_run_program, input_buffer);
+		run_method(&phone_book, &do_run_program, input_buffer);
 	}
-	delete phone_book;
 	return (0);
 }

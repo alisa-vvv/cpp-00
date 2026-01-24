@@ -23,9 +23,8 @@ int	main(
 	if (argc == 1)
 		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
 	else {
-		int	i;
 		std::string::iterator it;
-		for (i = 1; i < argc; i++) {
+		for (int i = 1; i < argc; i++) {
 			arg_string = argv[i];
 			for (it = arg_string.begin(); it != arg_string.end(); it++)
 				*it = std::toupper(*it);

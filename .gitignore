@@ -1,7 +1,5 @@
 test.c
-main.c
 test.cpp
-main.cpp
 a.out
 ./test_files/*
 test_files/

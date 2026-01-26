@@ -6,7 +6,7 @@
 /*   By: avaliull <avaliull@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
 /*   Created: 2026/01/14 17:45:18 by avaliull            #+#    #+#           */
-/*   Updated: 2026/01/24 17:59:20 by avaliull            ########   odam.nl   */
+/*   Updated: 2026/01/24 18:15:12 by avaliull            ########   odam.nl   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # pragma once
 
 # define PHONEBOOK_MAX_SIZE 8
+
+class Contact;
 
 class	PhoneBook {
 private:

@@ -21,6 +21,9 @@ class Account {
 
 public:
 
+	/* I tink t is a template here. atrocious naming but ok. standard is capital T which also
+	 * seems bad but at least it's standardized. This is just terrbile lol
+	 */
 	typedef Account		t;
 
 	static int	getNbAccounts( void );

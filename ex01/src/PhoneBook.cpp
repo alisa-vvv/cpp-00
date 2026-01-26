@@ -6,7 +6,7 @@
 /*   By: avaliull <avaliull@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
 /*   Created: 2026/01/24 17:29:58 by avaliull            #+#    #+#           */
-/*   Updated: 2026/01/24 18:00:39 by avaliull            ########   odam.nl   */
+/*   Updated: 2026/01/26 17:16:29 by avaliull            ########   odam.nl   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ int	PhoneBook::_input_is_digit(
 void	PhoneBook::_print_single_contact(
 	int	contact_index
 ) {
-	std::string *const cur_contact = &contact_list[contact_index].first_name;
-
-	std::cout << std::right << std::setw(10) << contact_index;
-	for (int i = 0; i < 3; i++) {
-		std::cout << '|';
-		_print_truncated_field(cur_contact[i]);
-	}
+	std::cout << contact_index;
+	std::cout << '|';
+	_print_truncated_field(contact_list[contact_index].first_name);
+	std::cout << '|';
+	_print_truncated_field(contact_list[contact_index].last_name);
+	std::cout << '|';
+	_print_truncated_field(contact_list[contact_index].nickname);
+	std::cout << '|';
+	_print_truncated_field(contact_list[contact_index].phone_number);
 	std::cout << "\n\n";
 }
 

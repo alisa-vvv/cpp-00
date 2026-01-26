@@ -21,10 +21,7 @@ class Account {
 
 public:
 
-	/* I tink t is a template here. atrocious naming but ok. standard is capital T which also
-	 * seems bad but at least it's standardized. This is just terrbile lol
-	 */
-	typedef Account		t;
+	typedef Account		t; // why is it just named t what the fucccck
 
 	static int	getNbAccounts( void );
 	static int	getTotalAmount( void );

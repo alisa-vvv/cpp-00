@@ -15,8 +15,7 @@
 NAME	=	account
 
 C++FILES	=	Account.cpp\
-				testmain.cpp
-				#tests.cpp
+				tests.cpp
 
 OFILES	= $(addprefix $(BUILDDIR),$(C++FILES:.cpp=.o))
 DEPFILES	= $(addprefix $(BUILDDIR),$(C++FILES:.cpp=.d))

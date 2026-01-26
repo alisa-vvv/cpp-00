@@ -6,13 +6,18 @@
 /*   By: avaliull <avaliull@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
 /*   Created: 2026/01/26 15:43:15 by avaliull            #+#    #+#           */
-/*   Updated: 2026/01/26 19:53:46 by avaliull            ########   odam.nl   */
+/*   Updated: 2026/01/26 20:04:06 by avaliull            ########   odam.nl   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Account.hpp"
 #include <ctime>
 #include <iostream>
+
+int	Account::_nbAccounts = 0;
+int	Account::_totalAmount = 0;
+int	Account::_totalNbDeposits = 0;
+int	Account::_totalNbWithdrawals = 0;
 
 Account::Account(
 	int initial_deposit

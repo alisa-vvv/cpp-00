@@ -12,10 +12,11 @@
 
 .DEFAULT_GOAL := all
 
-NAME	=	phonebook
+NAME	=	account
 
-C++FILES	=	tests.cpp\
-				Account.cpp
+C++FILES	=	Account.cpp\
+				testmain.cpp
+				#tests.cpp
 
 OFILES	= $(addprefix $(BUILDDIR),$(C++FILES:.cpp=.o))
 DEPFILES	= $(addprefix $(BUILDDIR),$(C++FILES:.cpp=.d))

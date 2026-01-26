@@ -6,7 +6,7 @@
 /*   By: avaliull <avaliull@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
 /*   Created: 2026/01/26 15:43:15 by avaliull            #+#    #+#           */
-/*   Updated: 2026/01/26 15:43:16 by avaliull            ########   odam.nl   */
+/*   Updated: 2026/01/26 19:53:46 by avaliull            ########   odam.nl   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ Account::Account(
 	Account::_accountIndex = _nbAccounts;
 	Account::makeDeposit(initial_deposit);
 }
+Account::~Account(
+	void
+)
+{
+}
+
 
 int	Account::getNbAccounts(
 	void
@@ -77,6 +83,18 @@ void Account::_displayTimestamp(
 	std::cout << "[ " << timestamp.tv_sec << '_' << timestamp.tv_nsec << " ] ";
 }
 
+//dummy funcs to make suire it compiles
+void	Account::displayAccountsInfos( void ) {
+}
+int		Account::checkAmount( void ) const {
+	return (0);
+}
+bool	Account::makeWithdrawal( int withdrawal ) {
+	return (withdrawal + Account::_nbWithdrawals);
+}
+Account::Account (void) {
+}
+
 
 //class Account {
 //
@@ -92,7 +110,7 @@ void Account::_displayTimestamp(
 //	static void	displayAccountsInfos( void );
 //
 //	Account( int initial_deposit ); / done?
-//	~Account( void );
+//	~Account( void ); / done
 //
 //	void	makeDeposit( int deposit ); / done
 //	bool	makeWithdrawal( int withdrawal );

@@ -22,6 +22,17 @@
 class Contact;
 
 class	PhoneBook {
+public:
+	Contact	contact_list[PHONEBOOK_MAX_SIZE];
+
+	void	add_contact(
+		void
+	);
+
+	void	search_contact(
+		void
+	);
+
 private:
 	int			_last_added = -1;
 	int			_total_added = 0;
@@ -51,16 +62,6 @@ private:
 		"Enter darkest secret: "
 	};
 
-public:
-	Contact	contact_list[PHONEBOOK_MAX_SIZE];
-
-	void	add_contact(
-		void
-	);
-
-	void	search_contact(
-		void
-	);
 };
 
 #endif /*PHONEBOOK_H*/

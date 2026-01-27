@@ -14,6 +14,9 @@
 #include <ctime>
 #include <iostream>
 
+using std::cout;
+using std::endl;
+
 int	Account::_nbAccounts = 0;
 int	Account::_totalAmount = 0;
 int	Account::_totalNbDeposits = 0;
@@ -22,20 +25,30 @@ int	Account::_totalNbWithdrawals = 0;
 Account::Account(
 	int initial_deposit
 ) {
+	_displayTimestamp();
 	_accountIndex = _nbAccounts;
-	makeDeposit(initial_deposit);
+	_nbDeposits = 0;
+	_nbWithdrawals = 0;
 	_nbAccounts++;
+	_amount += initial_deposit;
+	_totalAmount += initial_deposit;
+	cout << "index:" << _accountIndex;
+	cout << ';';
+	cout << "amount:" << _amount;
+	cout << ';';
+	cout << "created\n";
 }
 
 Account::~Account(
 	void
 ) {
-	std::cout << "index:" << _accountIndex;
-	std::cout << ';';
-	std::cout << "amount:" << _amount;
-	std::cout << ';';
-	std::cout << "closed";
-	std::cout << std::endl;
+	_displayTimestamp();
+	cout << "index:" << _accountIndex;
+	cout << ';';
+	cout << "amount:" << _amount;
+	cout << ';';
+	cout << "closed";
+	cout << endl;
 }
 
 
@@ -66,37 +79,35 @@ int	Account::getNbWithdrawals(
 void Account::displayStatus(
 	void
 ) const {
-	// it looks like this:
-	// if account is just created with no deposits yet, print status + "created"
-	// if account has deposts or withdrawals, print status + counts"
-	// on destrution, print closed
 	_displayTimestamp();
-	std::cout << "index:" << _accountIndex;
-	std::cout << ';';
-	std::cout << "amount:" << _amount;
-	std::cout << ';';
-	std::cout << "created\n";
+	cout << "index:" << _accountIndex;
+	cout << ';';
+	cout << "amount:" << _amount;
+	cout << ';';
+	cout << "deposits:" << _nbDeposits;
+	cout << ';';
+	cout << "withdrawals:" << _nbWithdrawals;
+	cout << endl;
 }
 
 void	Account::makeDeposit(
 	int deposit
 ) {
 	_displayTimestamp();
-	std::cout << "index:" << _accountIndex;
-	std::cout << ';';
-	std::cout << "p_amount:" << _amount;
-	std::cout << ';';
-	std::cout << "deposit:" << deposit;
-	std::cout << ';';
+	cout << "index:" << _accountIndex;
+	cout << ';';
+	cout << "p_amount:" << _amount;
+	cout << ';';
+	cout << "deposit:" << deposit;
+	cout << ';';
 	_amount += deposit;
-	std::cout << "amount:" << _amount;
-	std::cout << ';';
+	cout << "amount:" << _amount;
+	cout << ';';
 	_nbDeposits++;
-	std::cout << "nb_deposits:" << _nbDeposits;
-	std::cout << ';';
+	cout << "nb_deposits:" << _nbDeposits;
 	_totalNbDeposits++;
 	_totalAmount += deposit;
-	std::cout << std::endl;
+	cout << endl;
 }
 
 void Account::_displayTimestamp(
@@ -106,21 +117,21 @@ void Account::_displayTimestamp(
 	timespec timestamp;
 
 	timespec_get(&timestamp, TIME_UTC);
-	std::cout << "[ " << timestamp.tv_sec << '_' << timestamp.tv_nsec << " ] ";
+	cout << "[" << timestamp.tv_sec << '_' << timestamp.tv_nsec << "] ";
 }
 
 void	Account::displayAccountsInfos(
 	void
 ) {
 	_displayTimestamp();
-	std::cout << "accounts:" << _nbAccounts;
-	std::cout << ';';
-	std::cout << "total:" << _totalAmount;
-	std::cout << ';';
-	std::cout << "deposits:" << _totalNbDeposits;
-	std::cout << ';';
-	std::cout << "withdrawals:" << _totalNbWithdrawals;
-	std::cout << std::endl;
+	cout << "accounts:" << _nbAccounts;
+	cout << ';';
+	cout << "total:" << _totalAmount;
+	cout << ';';
+	cout << "deposits:" << _totalNbDeposits;
+	cout << ';';
+	cout << "withdrawals:" << _totalNbWithdrawals;
+	cout << endl;
 }
 
 int		Account::checkAmount( void ) const { // what is that even for i dunno
@@ -128,27 +139,26 @@ int		Account::checkAmount( void ) const { // what is that even for i dunno
 }
 
 bool	Account::makeWithdrawal( int withdrawal ) {
-	std::cout << "index:" << _accountIndex;
-	std::cout << ';';
-	std::cout << "p_amount:" << _amount;
-	std::cout << ';';
-	std::cout << "withdrawal:";
 	_displayTimestamp();
+	cout << "index:" << _accountIndex;
+	cout << ';';
+	cout << "p_amount:" << _amount;
+	cout << ';';
+	cout << "withdrawal:";
 	if (withdrawal > _amount) {
-		std::cout << "refused";
-		std::cout << std::endl;
+		cout << "refused";
+		cout << endl;
 		return (false);
 	}
-	std::cout << withdrawal;
-	std::cout << ';';
+	cout << withdrawal;
+	cout << ';';
 	_amount -= withdrawal;
+	_totalAmount -= withdrawal;
 	_nbWithdrawals++;
-	std::cout << "amount:" << _amount;
-	std::cout << ';';
-	std::cout << "nb_withdrawals:" << _nbWithdrawals;
-	std::cout << std::endl;
+	_totalNbWithdrawals++;
+	cout << "amount:" << _amount;
+	cout << ';';
+	cout << "nb_withdrawals:" << _nbWithdrawals;
+	cout << endl;
 	return (true);
-}
-
-Account::Account (void) {
 }

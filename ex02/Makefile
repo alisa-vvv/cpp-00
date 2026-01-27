@@ -86,6 +86,10 @@ gdb: fclean debug
 test: $(NAME) run
 run:
 	./$(NAME) $(INPUT)
+run-diff: 
+	$(MAKE)
+	./$(NAME) $(INPUT) > my.log
+	sh ./compare_logs.sh
 leak:
 	$(MAKE) -s debug
 	valgrind --track-fds=yes --track-origins=yes \

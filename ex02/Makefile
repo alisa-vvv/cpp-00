@@ -89,7 +89,8 @@ run:
 run-diff: 
 	$(MAKE)
 	./$(NAME) $(INPUT) > my.log
-	sh ./compare_logs.sh
+	chmod +x ./compare_logs.sh
+	./compare_logs.sh
 leak:
 	$(MAKE) -s debug
 	valgrind --track-fds=yes --track-origins=yes \

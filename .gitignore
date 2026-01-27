@@ -9,7 +9,6 @@ test_files/
 *.a
 *.ods
 *.ods#
-*.sh
 tmp
 *.json
 infile*

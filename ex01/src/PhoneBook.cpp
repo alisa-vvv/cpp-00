@@ -25,8 +25,7 @@ void	PhoneBook::_print_truncated_field(
 		std::cout << std::right << std::setw(10) << truncated_field;
 	}
 	else
-	std::cout << std::right << std::setw(10) << field;
-
+		std::cout << std::right << std::setw(10) << field;
 }
 
 int	PhoneBook::_input_is_digit(
@@ -72,13 +71,11 @@ void	PhoneBook::add_contact(
 		_last_added = 0;
 	else
 		_last_added++;
-	std::string *const cur_contact = &contact_list[_last_added].first_name;
-
-	for (int i = 0; i < FIELD_COUNT; i++) {
-		while (_get_and_validate_input(&cur_contact[i], _input_msg[i]) != 0) {
-			;
-		}
-	}
+	_get_and_validate_input(&contact_list[_last_added].first_name, "Enter first name: ");
+	_get_and_validate_input(&contact_list[_last_added].last_name, "Enter last name: ");
+	_get_and_validate_input(&contact_list[_last_added].nickname, "Enter nickname: ");
+	_get_and_validate_input(&contact_list[_last_added].phone_number, "Enter phone number: ");
+	_get_and_validate_input(&contact_list[_last_added].secret, "Enter darkest secret: ");
 	if (_total_added < 8)
 		_total_added++;
 	std::cout << "\nContact added!\n";

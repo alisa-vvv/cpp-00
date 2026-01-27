@@ -14,11 +14,11 @@
 
 NAME	=	account
 
-C++FILES	=	Account.cpp\
+CXXFILES	=	Account.cpp\
 				tests.cpp
 
-OFILES	= $(addprefix $(BUILDDIR),$(C++FILES:.cpp=.o))
-DEPFILES	= $(addprefix $(BUILDDIR),$(C++FILES:.cpp=.d))
+OFILES	= $(addprefix $(BUILDDIR),$(CXXFILES:.cpp=.o))
+DEPFILES	= $(addprefix $(BUILDDIR),$(CXXFILES:.cpp=.d))
 
 VPATH	= $(INCLUDE) $(SRCDIRS)
 BUILDDIR = build/
@@ -47,8 +47,8 @@ CC	= c++
 CPPFLAGS	= $(INCFLAGS) -MMD -MP
 
 INCFLAGS	= $(addprefix -I,$(INCLUDE))
-CFLAGS	= -Wall -Wextra -Werror
-#CFLAGS	= -Wall -Wextra -Werror -fsanitize=undefined
+CFLAGS	= -Wall -Wextra -Werror -std=c++98
+#CFLAGS	= -Wall -Wextra -Werror -std=c++98 -fsanitize=undefined
 LDFLAGS	=
 INPUT	=
 

@@ -29,8 +29,8 @@ Account::Account(
 	_accountIndex = _nbAccounts;
 	_nbDeposits = 0;
 	_nbWithdrawals = 0;
+	_amount = initial_deposit;
 	_nbAccounts++;
-	_amount += initial_deposit;
 	_totalAmount += initial_deposit;
 	cout << "index:" << _accountIndex;
 	cout << ';';
@@ -45,6 +45,7 @@ Account::Account(
 	_accountIndex = _nbAccounts;
 	_nbDeposits = 0;
 	_nbWithdrawals = 0;
+	_amount = 0;
 	_nbAccounts++;
 }
 

@@ -37,15 +37,20 @@ int		main( void ) {
 	ints_t::iterator	wit_begin	= withdrawals.begin();
 	ints_t::iterator	wit_end		= withdrawals.end();
 
-	/* Note  about commented lines:
+	/* Note  about commented lines and underscored function names:
 		* compiler complains about mem_fun_ref because it's deprecated.
-		* had to replace with mem_fn to even run.
-		* the rule: Your code should still compile if you add the flag -std=c++98
-		* does not aply in codam. so I believe I can do this legally.
+		* I ran this project with c++98 flag so it can compile.
+		* in general 42 rules, c++ projects have to be compiled with c++98.
+		* in codam, this rule does not apply. so this is the only ex I used
+		* this flag in.
+		*
+		* alternatively, we can replace all calls to mem_fun_ref with mem_fn,
+		* and it will compile without the flag.
 	*/
+
 	Account::displayAccountsInfos();
-	//std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
-	std::for_each( acc_begin, acc_end, std::mem_fn( &Account::displayStatus ) );
+	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
+	//std::for_each( acc_begin, acc_end, std::mem_fn( &Account::displayStatus ) );
 
 	for ( acc_int_t it( acc_begin, dep_begin );
 		  it.first != acc_end && it.second != dep_end;
@@ -55,8 +60,8 @@ int		main( void ) {
 	}
 
 	Account::displayAccountsInfos();
-	//std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
-	std::for_each( acc_begin, acc_end, std::mem_fn( &Account::displayStatus ) );
+	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
+	//std::for_each( acc_begin, acc_end, std::mem_fn( &Account::displayStatus ) );
 
 	for ( acc_int_t it( acc_begin, wit_begin );
 		  it.first != acc_end && it.second != wit_end;
@@ -66,8 +71,8 @@ int		main( void ) {
 	}
 
 	Account::displayAccountsInfos();
-	//std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
-	std::for_each( acc_begin, acc_end, std::mem_fn( &Account::displayStatus ) );
+	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
+	//std::for_each( acc_begin, acc_end, std::mem_fn( &Account::displayStatus ) );
 
 	return 0;
 }

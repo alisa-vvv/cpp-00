@@ -6,7 +6,7 @@
 /*   By: avaliull <avaliull@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
 /*   Created: 2026/01/26 19:43:02 by avaliull            #+#    #+#           */
-/*   Updated: 2026/01/26 19:59:18 by avaliull            ########   odam.nl   */
+/*   Updated: 2026/01/26 20:07:34 by avaliull            ########   odam.nl   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	main(void)
 {
-	Account new_acc = Account(123);
+	Account::t new_acc = Account(123);
 
 	std::mem_fn( &Account::displayStatus );
 }

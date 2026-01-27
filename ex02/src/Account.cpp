@@ -21,49 +21,59 @@ int	Account::_totalNbWithdrawals = 0;
 
 Account::Account(
 	int initial_deposit
-)
-{
-	Account::_accountIndex = _nbAccounts;
-	Account::makeDeposit(initial_deposit);
+) {
+	_accountIndex = _nbAccounts;
+	makeDeposit(initial_deposit);
+	_nbAccounts++;
 }
+
 Account::~Account(
 	void
-)
-{
+) {
+	std::cout << "index:" << _accountIndex;
+	std::cout << ';';
+	std::cout << "amount:" << _amount;
+	std::cout << ';';
+	std::cout << "closed";
+	std::cout << std::endl;
 }
 
 
 int	Account::getNbAccounts(
 	void
 ) {
-	return (Account::_nbAccounts);
+	return (_nbAccounts);
 }
 
 int	Account::getTotalAmount(
 	void
 ) {
-	return (Account::_totalAmount);
+	return (_totalAmount);
 }
 
 int	Account::getNbDeposits(
 	void
 ) {
-	return (Account::_totalNbDeposits);
+	return (_totalNbDeposits);
 }
 
 int	Account::getNbWithdrawals(
 	void
 ) {
-	return (Account::_totalNbWithdrawals);
+	return (_totalNbWithdrawals);
 }
 
 void Account::displayStatus(
 	void
 ) const {
-	Account::_displayTimestamp();
-	std::cout << "index:" << Account::_accountIndex;
+	// it looks like this:
+	// if account is just created with no deposits yet, print status + "created"
+	// if account has deposts or withdrawals, print status + counts"
+	// on destrution, print closed
+	_displayTimestamp();
+	std::cout << "index:" << _accountIndex;
 	std::cout << ';';
-	std::cout << "amount:" << Account::_amount;
+	std::cout << "amount:" << _amount;
 	std::cout << ';';
 	std::cout << "created\n";
 }
@@ -71,11 +81,22 @@ void Account::displayStatus(
 void	Account::makeDeposit(
 	int deposit
 ) {
-	Account::_amount += deposit;
-	Account::_nbDeposits++;
-	Account::_nbAccounts++;
-	Account::_totalNbDeposits++;
-	Account::_totalAmount += deposit;
+	_displayTimestamp();
+	std::cout << "index:" << _accountIndex;
+	std::cout << ';';
+	std::cout << "p_amount:" << _amount;
+	std::cout << ';';
+	std::cout << "deposit:" << deposit;
+	std::cout << ';';
+	_amount += deposit;
+	std::cout << "amount:" << _amount;
+	std::cout << ';';
+	_nbDeposits++;
+	std::cout << "nb_deposits:" << _nbDeposits;
+	std::cout << ';';
+	_totalNbDeposits++;
+	_totalAmount += deposit;
+	std::cout << std::endl;
 }
 
 void Account::_displayTimestamp(
@@ -88,56 +109,46 @@ void Account::_displayTimestamp(
 	std::cout << "[ " << timestamp.tv_sec << '_' << timestamp.tv_nsec << " ] ";
 }
 
-//dummy funcs to make suire it compiles
-void	Account::displayAccountsInfos( void ) {
+void	Account::displayAccountsInfos(
+	void
+) {
+	_displayTimestamp();
+	std::cout << "accounts:" << _nbAccounts;
+	std::cout << ';';
+	std::cout << "total:" << _totalAmount;
+	std::cout << ';';
+	std::cout << "deposits:" << _totalNbDeposits;
+	std::cout << ';';
+	std::cout << "withdrawals:" << _totalNbWithdrawals;
+	std::cout << std::endl;
 }
-int		Account::checkAmount( void ) const {
-	return (0);
+
+int		Account::checkAmount( void ) const { // what is that even for i dunno
+	return (_amount);
 }
+
 bool	Account::makeWithdrawal( int withdrawal ) {
-	return (withdrawal + Account::_nbWithdrawals);
+	std::cout << "index:" << _accountIndex;
+	std::cout << ';';
+	std::cout << "p_amount:" << _amount;
+	std::cout << ';';
+	std::cout << "withdrawal:";
+	_displayTimestamp();
+	if (withdrawal > _amount) {
+		std::cout << "refused";
+		std::cout << std::endl;
+		return (false);
+	}
+	std::cout << withdrawal;
+	std::cout << ';';
+	_amount -= withdrawal;
+	_nbWithdrawals++;
+	std::cout << "amount:" << _amount;
+	std::cout << ';';
+	std::cout << "nb_withdrawals:" << _nbWithdrawals;
+	std::cout << std::endl;
+	return (true);
 }
+
 Account::Account (void) {
 }
-
-
-//class Account {
-//
-//
-//public:
-//
-//	typedef Account		t; // why is it just named t what the fucccck
-//
-//	static int	getNbAccounts( void ); / done
-//	static int	getTotalAmount( void ); / done
-//	static int	getNbDeposits( void ); / done
-//	static int	getNbWithdrawals( void ); / done
-//	static void	displayAccountsInfos( void );
-//
-//	Account( int initial_deposit ); / done?
-//	~Account( void ); / done
-//
-//	void	makeDeposit( int deposit ); / done
-//	bool	makeWithdrawal( int withdrawal );
-//	int		checkAmount( void ) const;
-//	void	displayStatus( void ) const; / done
-//
-//
-//private:
-//
-//	static int	_nbAccounts;
-//	static int	_totalAmount;
-//	static int	_totalNbDeposits;
-//	static int	_totalNbWithdrawals;
-//
-//	static void	_displayTimestamp( void ); / done
-//
-//	int				_accountIndex;
-//	int				_amount;
-//	int				_nbDeposits;
-//	int				_nbWithdrawals;
-//
-//	Account( void );
-//
-//};
-//

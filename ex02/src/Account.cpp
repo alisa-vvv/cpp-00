@@ -39,6 +39,16 @@ Account::Account(
 	cout << "created\n";
 }
 
+Account::Account(
+	void
+) {
+	_accountIndex = _nbAccounts;
+	_nbDeposits = 0;
+	_nbWithdrawals = 0;
+	_nbAccounts++;
+}
+
+
 Account::~Account(
 	void
 ) {
@@ -134,11 +144,15 @@ void	Account::displayAccountsInfos(
 	cout << endl;
 }
 
-int		Account::checkAmount( void ) const { // what is that even for i dunno
+int		Account::checkAmount(
+	void
+) const {
 	return (_amount);
 }
 
-bool	Account::makeWithdrawal( int withdrawal ) {
+bool	Account::makeWithdrawal(
+	int withdrawal
+) {
 	_displayTimestamp();
 	cout << "index:" << _accountIndex;
 	cout << ';';

@@ -41,7 +41,7 @@ private:
 		std::string	field
 	);
 
-	int	_input_is_digit(
+	int	_input_is_valid(
 		std::string	str
 	);
 
@@ -49,8 +49,8 @@ private:
 		int	contact_index
 	);
 
-	int	_get_and_validate_input(
-		std::string *const	field,
+	void	_get_and_validate_input(
+		std::string&		field,
 		const std::string	message
 	);
 

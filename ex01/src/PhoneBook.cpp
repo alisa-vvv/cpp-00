@@ -28,7 +28,7 @@ void	PhoneBook::_print_truncated_field(
 		std::cout << std::right << std::setw(10) << field;
 }
 
-int	PhoneBook::_input_is_digit(
+int	PhoneBook::_input_is_valid(
 	std::string	str
 ) {
 	if (str.find_first_not_of("0123456789") == std::string::npos)
@@ -51,17 +51,24 @@ void	PhoneBook::_print_single_contact(
 	std::cout << "\n\n";
 }
 
-int	PhoneBook::_get_and_validate_input(
-	std::string *const	field,
+void	PhoneBook::_get_and_validate_input(
+	std::string&		field,
 	const std::string	message
 ) {
-	std::cout << '\n' << message;
-	std::getline(std::cin, *field);
-	if (field->empty()) {
-		std::cout << "Field can't be empty! Try again.\n";
-		return (1);
+	bool	got_valid_input = false;
+
+	while (got_valid_input == false) {
+		std::cout << '\n' << message;
+		if (!std::getline(std::cin, field) || std::cin.eof()) {
+			std::cout << "Invalid input! Try again.\n";
+			std::cin.clear();
+		}
+		else if (field.empty()) {
+			std::cout << "Field can't be empty! Try again.\n";
+		}
+		else
+			got_valid_input = true;
 	}
-	return (0);
 }
 
 void	PhoneBook::add_contact(
@@ -71,11 +78,11 @@ void	PhoneBook::add_contact(
 		_last_added = 0;
 	else
 		_last_added++;
-	_get_and_validate_input(&contact_list[_last_added].first_name, "Enter first name: ");
-	_get_and_validate_input(&contact_list[_last_added].last_name, "Enter last name: ");
-	_get_and_validate_input(&contact_list[_last_added].nickname, "Enter nickname: ");
-	_get_and_validate_input(&contact_list[_last_added].phone_number, "Enter phone number: ");
-	_get_and_validate_input(&contact_list[_last_added].secret, "Enter darkest secret: ");
+	_get_and_validate_input(contact_list[_last_added].first_name, "Enter first name: ");
+	_get_and_validate_input(contact_list[_last_added].last_name, "Enter last name: ");
+	_get_and_validate_input(contact_list[_last_added].nickname, "Enter nickname: ");
+	_get_and_validate_input(contact_list[_last_added].phone_number, "Enter phone number: ");
+	_get_and_validate_input(contact_list[_last_added].secret, "Enter darkest secret: ");
 	if (_total_added < 8)
 		_total_added++;
 	std::cout << "\nContact added!\n";
@@ -98,7 +105,7 @@ void	PhoneBook::search_contact(
 	std::cout << "Please enter index of the contact you would like to view: \n";
 	std::cout << "index: ";
 	std::getline(std::cin, contact_index_str);
-	if (_input_is_digit(contact_index_str) == false) {
+	if (_input_is_valid(contact_index_str) == false) {
 		std::cout << "\nIndex can only be a positive number!\n";
 		std::cout << "SEARCH again and input a correct index.\n\n";
 		return ;

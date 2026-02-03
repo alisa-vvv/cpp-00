@@ -6,14 +6,13 @@
 /*   By: avaliull <avaliull@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
 /*   Created: 2026/01/14 16:27:18 by avaliull            #+#    #+#           */
-/*   Updated: 2026/02/03 16:33:34 by avaliull            ########   odam.nl   */
+/*   Updated: 2026/02/03 17:03:49 by avaliull            ########   odam.nl   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 #include <iostream>
 #include <iomanip>
-#include <cctype>
 
 void	print_left_align(
 	std::string	str

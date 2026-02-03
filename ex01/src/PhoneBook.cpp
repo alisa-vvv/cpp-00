@@ -6,14 +6,13 @@
 /*   By: avaliull <avaliull@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
 /*   Created: 2026/01/24 17:29:58 by avaliull            #+#    #+#           */
-/*   Updated: 2026/02/03 17:00:05 by avaliull            ########   odam.nl   */
+/*   Updated: 2026/02/03 17:03:54 by avaliull            ########   odam.nl   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <iomanip>
 #include "Contact.hpp"
-#include <cctype>
 #include "PhoneBook.hpp"
 
 void	PhoneBook::_print_truncated_field(

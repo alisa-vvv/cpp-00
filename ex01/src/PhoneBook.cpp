@@ -6,7 +6,7 @@
 /*   By: avaliull <avaliull@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
 /*   Created: 2026/01/24 17:29:58 by avaliull            #+#    #+#           */
-/*   Updated: 2026/02/03 17:03:54 by avaliull            ########   odam.nl   */
+/*   Updated: 2026/02/03 17:07:04 by avaliull            ########   odam.nl   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ int	PhoneBook::_get_and_validate_input(
 		}
 		else if (_all_symbols_are_valid(field) == false) {
 			std::cout << "Can only use alphanumeric symbols, spaces, dashes and apostrophes. Try again.\n";
+		}
+		else if (field.length() > 127) {
+			std::cout << "Field can't be longer than 127 characters! Try again.\n";
 		}
 		else if (field.empty()) {
 			std::cout << "Field can't be empty! Try again.\n";

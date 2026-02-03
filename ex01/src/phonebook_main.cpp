@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                            ::::::::        */
-/*   main.cpp                                                :+:    :+:       */
+/*   phonebook_main.cpp                                      :+:    :+:       */
 /*                                                          +:+               */
 /*   By: avaliull <avaliull@student.codam.nl>              +#+                */
 /*                                                        +#+                 */
 /*   Created: 2026/01/14 16:27:18 by avaliull            #+#    #+#           */
-/*   Updated: 2026/01/24 17:55:08 by avaliull            ########   odam.nl   */
+/*   Updated: 2026/02/03 16:33:34 by avaliull            ########   odam.nl   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 #include <iostream>
 #include <iomanip>
+#include <cctype>
 
 void	print_left_align(
 	std::string	str
@@ -57,9 +58,13 @@ int	main(
 	do_run_program = true;
 	std::cout << "\n\tWelcome to the crappy 80's phonebook app!\n\n";
 	print_command_list();
-	while (do_run_program == true) {
+	while (do_run_program == true && !std::cin.eof()) {
 		std::cout << "Enter command: ";
-		std::getline(std::cin, input_buffer);
+		if (!std::getline(std::cin, input_buffer)) {
+			std::cout << '\n';
+			std::cin.clear();
+			break ;
+		}
 		std::cout << '\n';
 		run_method(&phone_book, &do_run_program, input_buffer);
 	}
